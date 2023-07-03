@@ -1,12 +1,10 @@
-# Learning Management System Web App
-
-## Description:
+# Description:
 
 An e-learning platform for educational groups.
 
 This web app was made using Django framework.
 
-## How To Run:
+# How To Run:
 
 Clone the repository and run the Django app using python manage.py runserver (assuming you have django installed).
 
