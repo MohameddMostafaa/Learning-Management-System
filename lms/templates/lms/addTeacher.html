@@ -1,0 +1,17 @@
+{% extends "lms/layout.html" %}
+
+{% block body %}
+    <div class="centered-div">
+        {% if teacherForm %}
+            <h1>Add Teacher:</h1>
+            <div id="addTeacherDiv">
+                <form action="{% url 'addTeacher' %}" method="post">
+                    {% csrf_token %}
+                    {{ teacherForm.as_p }}
+                    <br>
+                    <input type="submit" name="teacherAdded">
+                </form>
+            </div>
+        {% endif %}
+    </div>  
+{% endblock %}

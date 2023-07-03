@@ -1,0 +1,62 @@
+{% extends "lms/layout.html" %}
+    {% block title %}{{ course.code }}{% endblock %}
+    {% block script_file %}<script src="{% static 'lms/course.js' %}"></script>{% endblock %}
+    
+    {% block body %}
+        {% if eligible %}
+            <div class="centered-div">
+                <h1>{{ course.name }} ({{ course.code }})</h1>
+
+                {% if accType == "moderator" %}
+                    {% if usersExist %}
+                        <div id="notEnrolled">
+                            <h1>Not Enrolled</h1>
+                            {% for user in not_enrolled %}
+                                <button class="enroll-button" id="enroll{{ user.id }}" data-user="{{ user.id }}" data-course="{{ course.code }}">{{ user.name }} ({{ user.username }})</button>
+                            {% endfor %}
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <div id="enrolled">
+                            <h1>Enrolled</h1>
+                            {% for user in enrolled %}
+                                <button class="unenroll-button" id="unenroll{{ user.id }}" data-user="{{ user.id }}" data-course="{{ course.code }}">{{ user.name }} ({{ user.username }})</button>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <h1>No Students or Teachers added to course yet.</h1>
+                    {% endif %}
+
+                    
+
+                {% elif accType == "teacher" %}
+                    <h1>Add Post:</h1>
+                    <div id="addPostDiv">
+                        <form action="{% url 'course' course.code %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ postForm.as_p }}
+                            <input type="submit" name="postAdded">
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+                
+                <br>
+                <br>
+            <div class="posts-div">
+                {% if postsExist %}
+                    <h1>Posts:</h1>
+                    {% for post in posts %}
+                        <a id="post{{post.id}}" href="{% url 'post' course_code=course.code post_id=post.id  %}"><h2>{{ post.title }}       Created on: {{ post.time }}   Created by: {{ post.user.name }}</h2></a>
+                    {% endfor %}
+                {% else %}
+                    <h1>No Posts yet.</h1>
+                {% endif %}
+            </div>
+        {% else %}
+                <h1>Access Denied!</h1>
+        {% endif %}
+
+    {% endblock %}
+

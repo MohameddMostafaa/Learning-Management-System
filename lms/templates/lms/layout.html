@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Learning Management System{% endblock %}</title>
+        <link href="{% static 'lms/styles.css' %}" rel="stylesheet">
+        <script src="{% static 'lms/script.js' %}"></script>
+        {% block script_file %}
+        {% endblock %}
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+
+            <nav class="navbar">
+                <div class="navbar-left">
+                  <button class="navbar-toggle" id="sidebar-toggle">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                  </button>
+                  <a href="{% url 'index' %}" class="navbar-brand">LMS</a>
+                </div>
+                <div class="navbar-right">
+                  <button class="navbar-toggle" id="dropdown-toggle">
+                    <h3 id="accName">{{ request.user.username }}</h3>
+                    <!-- <svg id="arrowDown" style="color: white" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16"> <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" fill="white"></path> </svg> -->
+                  </button>
+                  <div class="dropdown-menu">
+                    <button class="btn"><a href="{% url 'logout' %}"><h2>Log Out</h2></a></button>
+                  </div>
+                </div>
+            </nav>
+            
+            <div id="sidebar">
+                {% if request.user.type|stringformat:"s" == "moderator" %}
+                    <ul>
+                        <li><a href="{% url 'addStudent' %}">Add Student</a></li>
+                        <li><a href="{% url 'addTeacher' %}">Add Teacher</a></li>
+                        <li><a href="{% url 'addCourse' %}">Add Course</a></li>
+                    </ul>
+                {% endif %}
+                <br>
+                <br>
+                {% if coursesExistContext %}
+                    <ul>
+                        <h2 id="navbar-category">Courses: </h2>
+                        {% for course in coursesContext %}
+                            <li><a class="link-navbar" id="course{{course.id}}" href="{% url 'course' course.code %}">{{course.name}}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                
+            </div>
+        {% endif %}
+
+        {% block body %}
+        {% endblock %}
+    </body>
+
+</html>

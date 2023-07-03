@@ -1,0 +1,18 @@
+{% extends "lms/layout.html" %}
+
+    {% block title %}Homepage{% endblock %}
+    {% block script_file %}<script src="{% static 'lms/admin.js' %}"></script>{% endblock %}
+
+    {% block body %}
+        <div class="centered-div">
+            {% if pendingExist %}
+                <h2 id="pending-text">Pending Accounts:</h2>
+            {% else %}
+                <h2 id="pending-text">No Pending Accounts.</h2>
+            {% endif %}
+            <h2>{{ message }}</h2>
+            {% for acc in pending %}
+                <div class="admin_div" id="div{{ acc.id }}" data-user="{{ acc.id }}"><h3>Username: {{ acc.username }} |  email: {{ acc.email }} | group: {{ acc.group }}</h3> <button class="accept_button normalButton" id="accept{{ acc.id }}" data-user="{{ acc.id }}">Accept</button>  <button class="reject_button normalButton" id="reject{{ acc.id }}" data-user="{{ acc.id }}">Reject</button></div>
+            {% endfor %}
+        </div>
+    {% endblock %}

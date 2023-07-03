@@ -1,0 +1,23 @@
+{% extends "lms/layout.html" %}
+    {% block title %}Register{% endblock %}
+    {% block script_file %}<script src="{% static 'lms/register.js' %}"></script>{% endblock %}
+    
+    {% block body %}
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+
+        <div class="centered-div" id="registerDiv">
+            <h2>Register Request Form</h2>
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                {{ regForm.as_p }}
+                <br>
+                <input type="submit" id="regButton">
+            </form>
+            <br>
+            <button class="normalButton" id="addNewGroup">Add new group/org</button>
+            <button class="normalButton" id="existingGroups">Return to existing groups</button>
+            <h2 id="emailFormat">E-mail is invalid!</h2>
+        </div>
+    {% endblock %}

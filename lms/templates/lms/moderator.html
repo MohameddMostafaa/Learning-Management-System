@@ -1,0 +1,17 @@
+{% extends "lms/layout.html" %}
+    {% block title %}Homepage{% endblock %}
+
+
+
+    {% block body %}
+        <div class="centered-div">
+            {% if coursesExist %}
+                <h1>Courses: </h1>
+                {% for course in courses %}
+                    <a id="course{{course.id}}" href="{% url 'course' course.code %}"><h2>{{course.name}}</h2></a>
+                {% endfor %}
+            {% else %}
+                <h1>No Courses in Group yet.</h1>
+            {% endif %}
+        </div>
+    {% endblock %}

@@ -1,0 +1,43 @@
+{% extends "lms/layout.html" %}
+    {% block title %}{{ post.title }}{% endblock %}
+    {% block body %}
+        <div class="centered-div">
+            <h1>{{ post.title }}</h1>
+            <h2>Created by: {{ post.user.name }}  Created on: {{ post.time }}</h2>
+            <br>
+            <h2>{{ post.description }}</h2>
+            <br>
+            {% if post.file %}
+                <h2>Attached File: </h2>
+                <a href="{{ post.file.url }}" download>{{ post.filename }}</a>
+            {% endif %}
+            <br>
+            <br>
+            {% if submissionForm %}
+                <h2>Add Submission</h2>
+                <div id="addSubmissionDiv">
+                    <form action="{% url 'post' course_code=course.code post_id=post.id %}"  method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ submissionForm.as_p }}
+                        <input type="submit" name="submissionAdded">
+                    </form>
+                </div>
+            {% endif %} 
+
+            {% if submissions %}
+                <h2>Submissions:</h2>
+                {% for submission in submissions %}
+                    <h4>{{ submission.user.name }}</h4>
+                    <p>{{ submission.text }}</p>
+                    <a href="{{ submission.file.url }}" download>{{ submission.filename }}</a>
+                {% endfor %}
+            {% endif %}
+            
+            {% if mySubmission %}
+                <h2>My Submission: </h2>
+                <br>
+                <h3>{{ mySubmission.text }}</h3>
+                <a href="{{ mySubmission.file.url }}" download>{{ mySubmission.filename }}</a>
+            {% endif %}
+        </div>
+    {% endblock %}

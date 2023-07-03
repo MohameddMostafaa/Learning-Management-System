@@ -1,0 +1,17 @@
+{% extends "lms/layout.html" %}
+
+{% block body %}
+    <div class="centered-div">
+        {% if courseForm %}
+            <h1>Add Course:</h1>
+            <div id="addCourseDiv">
+                <form action="{% url 'addCourse' %}" method="post">
+                    {% csrf_token %}
+                    {{ courseForm.as_p }}
+                    <br>
+                    <input type="submit" name="courseAdded">
+                </form>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
