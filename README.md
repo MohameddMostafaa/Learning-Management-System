@@ -1,6 +1,6 @@
 # Learning Management System Web App
 
-#### Description:
+## Description:
 
 An e-learning platform for educational groups.
 
