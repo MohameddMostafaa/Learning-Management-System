@@ -4,6 +4,8 @@ An e-learning platform for educational groups.
 
 This web app was made using Django for backend, JS/HTML/CSS for frontend.
 
+The main focus of this web app was the backend, so the frontend was not given as much time as the backend.
+
 # How To Run
 
 Clone the repository and run the Django app using python manage.py runserver (assuming you have django installed).
