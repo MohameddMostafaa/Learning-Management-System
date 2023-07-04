@@ -2,7 +2,7 @@
 
 An e-learning platform for educational groups.
 
-This web app was made using Django framework.
+This web app was made using Django for backend, JS/HTML/CSS for frontend.
 
 # How To Run
 
